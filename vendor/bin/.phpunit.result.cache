@@ -1,0 +1,1 @@
+{"version":1,"defects":{"IpValidationtest::testValid":8,"IpValidationtest::testInvalid":8},"times":{"IpValidationtest::testValid":0.018,"IpValidationtest::testInvalid":0.002}}
