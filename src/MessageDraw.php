@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Message
+class MessageDraw
 {
     public function run(string $message) 
     {
@@ -10,43 +10,25 @@ class Message
 
         $phrase = null;
 
-        // dump('message=', $message);
-
         foreach($message as $key => $currentLetter) {
             $nextLetter = $message[$key + 1] ?? null;
             $lastLetter = $message[$key - 1] ?? null;
 
-            // dump('currentLetter=',$currentLetter);
-
             $currentLetterNumber = $this->matchNumber($currentLetter);
 
-            // dump('currentLetterNumber=',$currentLetterNumber);
-            // dump('nextLetter=',$nextLetter);
-
             $nextLetterNumber = $this->matchNumber($nextLetter);
-
-            dump('$this->isUpperCase($currentLetter) && is_null($lastLetter)',$this->isUpperCase($currentLetter) && is_null($lastLetter));
-            dump('currentleteer=', $currentLetter);
-            dump('$this->isUpperCase($lastLetter) && ! is_null($nextLetter) && $this->isLowerCase($nextLetter)',$this->isUpperCase($lastLetter) && ! is_null($nextLetter) && $this->isLowerCase($nextLetter));
-            dump('$this->isLowerCase($currentLetter) && $this->isUpperCase($lastLetter)',$this->isLowerCase($currentLetter) && $this->isUpperCase($lastLetter));
-            dump('$this->isUpperCase($currentLetter) && ! is_null($lastLetter) && $this->isLowerCase($lastLetter)',$this->isUpperCase($currentLetter) && ! is_null($lastLetter) && $this->isLowerCase($lastLetter));
 
             $match = match (true) {
                 $this->isUpperCase($currentLetter) && is_null($lastLetter),
                 $this->isUpperCase($lastLetter) && ! is_null($nextLetter) && $this->isLowerCase($nextLetter),
                 $this->isLowerCase($currentLetter) && $this->isUpperCase($lastLetter),
                 $this->isUpperCase($currentLetter) && ! is_null($lastLetter) && $this->isLowerCase($lastLetter),
-                //$this->isLetter($currentLetter) && $this->isUpperCase($currentLetter) && is_null($lastLetter),
-                //$this->isLetter($nextLetter) && $this->isLowerCase($nextLetter),
-                //$this->isSpecial($lastLetter) && $this->isLowerCase($currentLetter)  
-                // $this->isLowerCase($currentLetter) && $this->isUpperCase($lastLetter) 
+                 
                 
                 => function () use ($currentLetter, $lastLetter, $nextLetter) {
                     $a = $this->isSpecial($currentLetter) && !$this->isSpecial($nextLetter);
-                    // $b = $this->isSpecial($currentLetter) && !$this->isSpecial($lastLetter);
                     
                     if ($a) {
-                        dump('entrou');
                         return $this->parseToNumber($currentLetter);
                     }
 
@@ -60,8 +42,6 @@ class Message
             if ($currentLetterNumber === $nextLetterNumber && $this->isUpperCase($currentLetter) === $this->isUpperCase($nextLetter)) {
                 $phrase .= ' ';
             }
-
-            dump('------------------');
         }
 
         return $phrase;
@@ -165,14 +145,7 @@ class Message
             default => null,
         };
     }
-
-    private function spaces(string $msg, string $message)
-    {
-        if ($this->spacesBettweenNumbers($msg) === $this->spacesBettweenNumbers($message)) {
-            return " ";
-        }
-    }
-
+    
     private function isLetter(?string $char): bool
     {
         if (is_null($char)) {

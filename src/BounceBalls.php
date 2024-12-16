@@ -31,7 +31,6 @@ class BounceBalls
             $actualHeight = $actualHeight * $bounce; 
         }
 
-        dd($seenball);
         return $seenball;
     }
 }

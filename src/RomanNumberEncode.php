@@ -6,23 +6,6 @@ class RomanNumberEncode
 { 
     public function transform(int $number): string
     {
-        // 1990 é renderizado: 1000=M + 900=CM + 90=XC; resultando em MCMXC.
-        // 2008 é escrito como 2000=MM, 8=VIII; ou MMVIII.
-        // 1666 usa cada símbolo romano em ordem decrescente: MDCLXVI.
-
-        // 1 - I       
-        // 5 - v
-        // 10 - X
-
-        // 10 - X
-        // 50 - L
-        // 100 - C
-
-        // 100 - C
-        // 500 - D
-        // 1000 - M
-
-
         $numberAsString = str_split((string) $number);
 
         $count = count($numberAsString) - 1;
@@ -79,8 +62,6 @@ class RomanNumberEncode
             '1,3' => ['IX', 'XC', 'CM'],
             default => [],
         };
-
-        //dd($roman, $position, $roman[$position - 1]);
 
         return $roman[$position - 1] ?? 'ERROR';
     }
